@@ -211,7 +211,9 @@ def subsets(s):
     rest = subsets(s) # Find all subsets of the remaining elements
     s.add(element)    # Add the element back, so that s is unchanged
     "*** YOUR CODE HERE ***"
-
+    if len(s)==1:
+        return [{element}]+rest
+    return [s]+[{element}]+rest
 """4) Extra for experts.  Using reduce and lambda, define subsets using a
 one-line return statement.
 
@@ -233,6 +235,7 @@ def subsets_for_experts(s):
     10
     """
     "*** YOUR CODE HERE ***"
+    
 
 """5) Required for everyone. Extend the calculator program from lecture, copied
 below, to include a new operator, word, that concatenates the string
