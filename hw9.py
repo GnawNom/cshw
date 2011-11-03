@@ -281,7 +281,8 @@ def calc_test():
         target = examples.pop(0).strip()
         result = None # Construct what would have been printed by the REPL
         "*** YOUR CODE HERE ***"
-        assert result == target, result + ' is not ' + target
+        result=calc_eval(calc_parse(calc_expression))
+        assert str(result) == target, str(result) + ' is not ' + target
 
 from operator import mul
 
@@ -360,6 +361,19 @@ def calc_apply(operator, args):
         return numer/denom
     if operator == 'word':
         "*** YOUR CODE HERE ***"
+        if len(args) != 2:
+            raise TypeError(operator + ' requires exactly 2 arguments')
+        front,back=args
+        concat=str(front)+str(back)
+        try:
+            return int(concat)
+        except ValueError:
+            try:
+                return float(concat)
+            except TypeError:
+                raise TypeError(concat+' is not a well-formed number')
+            except ValueError:
+                raise TypeError(concat+' is not a well-formed number')
     
 # Parsing (NO CHANGES ARE REQUIRED TO THIS PART OF CALCULATOR)
 
