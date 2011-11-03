@@ -1,7 +1,7 @@
 #Name: Joe Wang
 #Login:cs61a-yb
 #Section/GSI:115/Hamilton Nguyen
-from ucb import *
+
 """Homework 9: Trees, Exceptions, and Calculator"""
 
 """1) A mobile is a type of hanging sculpture. For example, the mobile linked
@@ -152,7 +152,7 @@ of types is found.
 Warning: Interpreting a large mobile is quite slow (can you say why?).  You
 will want to remove the doctest for the large mobile during development.
 """
-@trace
+
 def interpret_mobile(s):
     """Return a Mobile described by string s by substituting one of the classes
     Branch, Weight, or Mobile for each occurrenct of the letter T.
@@ -211,9 +211,9 @@ def subsets(s):
     rest = subsets(s) # Find all subsets of the remaining elements
     s.add(element)    # Add the element back, so that s is unchanged
     "*** YOUR CODE HERE ***"
-    if len(s)==1:
-        return [{element}]+rest
-    return [s]+[{element}]+rest
+    
+        
+    return [i.union({element}) for i in rest]+rest
 """4) Extra for experts.  Using reduce and lambda, define subsets using a
 one-line return statement.
 
@@ -281,7 +281,9 @@ def calc_test():
         target = examples.pop(0).strip()
         result = None # Construct what would have been printed by the REPL
         "*** YOUR CODE HERE ***"
+        
         result=calc_eval(calc_parse(calc_expression))
+
         assert str(result) == target, str(result) + ' is not ' + target
 
 from operator import mul
@@ -362,7 +364,7 @@ def calc_apply(operator, args):
     if operator == 'word':
         "*** YOUR CODE HERE ***"
         if len(args) != 2:
-            raise TypeError(operator + ' requires exactly 2 arguments')
+            return 'TypeError: '+operator+' requires exactly 2 arguments'
         front,back=args
         concat=str(front)+str(back)
         try:
@@ -371,9 +373,9 @@ def calc_apply(operator, args):
             try:
                 return float(concat)
             except TypeError:
-                raise TypeError(concat+' is not a well-formed number')
+                return 'TypeError: '+operator+'requires exactly 2 arguments'
             except ValueError:
-                raise TypeError(concat+' is not a well-formed number')
+                return 'TypeError: '+concat+' is not a well-formed number'
     
 # Parsing (NO CHANGES ARE REQUIRED TO THIS PART OF CALCULATOR)
 
